@@ -10,6 +10,29 @@
   grid-template-columns: repeat(3,50px);
   grid-template-rows: repeat(3,50px);
 }
+.grid3{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+}
+.grid4{
+  display: grid;
+  grid-template-columns:repeat(3,1fr);
+}
+/* grid-gap */
+.grid5{
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  grid-gap: 20px 10px;
+}
+.grid6{
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  grid-template-areas: "header . header"
+                       "main . sidebar"
+                       "footer . footer";
+}
 .item{
   font-size: 2em;
   border: 1px solid #e5e4e9;
