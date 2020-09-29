@@ -10,10 +10,10 @@ function getGreatestCommonDivisorV2(a,b) {
 
 // 更相减损术
 function deCome(a,b){
+    if (a - b == 0) {
+        return a
+    }
     let big = a > b ? a:b;
     let small = a < b ? a:b;
-    if (big - small == 0) {
-        return small
-    }
     return deCome(big-small,small)
 }
