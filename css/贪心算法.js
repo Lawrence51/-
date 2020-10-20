@@ -5,24 +5,28 @@
 */
 function removeKDigits(num, k) {
     let newNum = num+'';
+    console.log(newNum,1)
     for (let i = 0; i < k; i++) {
         let hasCute = false;
         for (let j = 0; j < newNum.length-1; j++) {
             if (newNum.charAt(j) > newNum.charAt(j + 1)) {
-                newNum = newNum.substring(0,j) + newNum.substring(j+1,newNum.length-1);
-                hasCute = false;
+                newNum = newNum.substring(0,j) + newNum.substring(j+1,newNum.length);
+                console.log(newNum,4)
+                hasCute = true;
                 break;
             }
         }
         if (!hasCute) {
-            numNew = numNew.substring(0, numNew.length()-1)
+            console.log(newNum,2)
+            newNum = newNum.substring(0, newNum.length-1)
+            console.log(newNum,3)
         }
-
+        console.log(newNum,5)
         // 清楚整数左侧的数字0
-        numNew = parseInt(numNew) + '';
+        newNum = parseInt(newNum)+'';
     }
-    if (numNew.length == 0) {
+    if (newNum.length == 0) {
         return 0;
     };
-    return numNew;
+    return newNum;
 }
