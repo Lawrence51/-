@@ -13,12 +13,12 @@ class LRUCache {
     // 初始化链表只有两个元素，首和尾，因为是双向链表，所以相互指向
     this.tail.prev = this.head;
     this.head.next = this.tail;
-    this.map = new Map();
+    this.cache = new Map();
   }
 
   get(key) {
-    if (this.map.has(key)) {
-      const node = this.map.get(key);
+    if (this.cache.has(key)) {
+      const node = this.cache.get(key);
 
       // 在这一步将node本身前一个和后一个的node链接起来
       node.prev.next = node.next;
@@ -42,14 +42,14 @@ class LRUCache {
       // 并且由于数据是引用类型，链表的顺序在判断条件处 已经发生改变
       this.tail.prev.value = value;
     } else {
-      if (this.capacity === this.map.size) {
-        this.map.delete(this.head.next.key); // 删除栈底元素
+      if (this.capacity === this.cache.size) {
+        this.cache.delete(this.head.next.key); // 删除栈底元素
         this.head.next = this.head.next.next;
         this.head.next.prev = this.head;
       }
 
       const newNode = {key, value};
-      this.map.set(key, newNode);
+      this.cache.set(key, newNode);
 
       // 将新建的节点 置于栈顶
       this.tail.prev.next = newNode;
@@ -58,16 +58,4 @@ class LRUCache {
       this.tail.prev = newNode; 
     }
   }
-}
-
-class LruCache{
-  constructor(limit){
-    this.limit = limit || 10;
-     // head指针指向表头元素 即为最常用的元素
-     this.head = this.tail = undefined;
-     this.map = {};
-     this.size = 0;
-  }
-
-  get (key)
 }
