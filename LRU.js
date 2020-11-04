@@ -4,7 +4,7 @@ function isCycle(params) {
 }
 
 
-// 方法存疑
+
 class LRUCache {
   constructor(capacity) {
     this.capacity = capacity;
@@ -24,11 +24,11 @@ class LRUCache {
       node.prev.next = node.next;
       node.next.prev = node.prev;
 
-      // 往链表中头部添加node，改变链表的位置顺序，将最新访问的提前
-      this.tail.prev.next = node; // 将尾部前一个元素的下一个元素指向node
-      node.prev = this.tail.prev; // 
-      node.next = this.tail; // 
-      this.tail.prev = node; //
+      // 将node元素往链表中尾部添加，改变链表的位置顺序，将最新访问的放到尾部，这样的话，保证最近访问的在栈顶
+      this.tail.prev.next = node; // node与原尾部相连的元素 连接起来
+      node.prev = this.tail.prev; // node与原尾部相连的元素 连接起来
+      node.next = this.tail; // 尾部与node相连
+      this.tail.prev = node; // 尾部与node相连
 
       return node.value;
     } else {
@@ -38,10 +38,12 @@ class LRUCache {
 
   put(key,value) {
     if (this.get(key) !== -1) {
+      // 如果已经有了元素，就将元素替换掉
+      // 并且由于数据是引用类型，链表的顺序在判断条件处 已经发生改变
       this.tail.prev.value = value;
     } else {
       if (this.capacity === this.map.size) {
-        this.map.delete(this.head.next.key);
+        this.map.delete(this.head.next.key); // 删除栈底元素
         this.head.next = this.head.next.next;
         this.head.next.prev = this.head;
       }
@@ -49,10 +51,11 @@ class LRUCache {
       const newNode = {key, value};
       this.map.set(key, newNode);
 
+      // 将新建的节点 置于栈顶
       this.tail.prev.next = newNode;
       newNode.prev = this.tail.prev;
       newNode.next = this.tail;
-      this.tail.prev = newNode;
+      this.tail.prev = newNode; 
     }
   }
 }
