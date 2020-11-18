@@ -27,26 +27,37 @@
     var validateDebounce = debounce(function (e) {
       console.log('e is', e, this)
     }, 1000)
-    function throttle(fn, threshhold) {
-      console.log(fn, threshhold, '----')
-      let timer = null;
-      let start = new Date().getTime();
+    // function throttle(fn, threshhold) {
+    //   console.log(fn, threshhold, '----')
+    //   let timer = null;
+    //   let start = new Date().getTime();
+    //   return function (e) {
+    //     let context = this, args = arguments;
+    //     clearTimeout(timer)
+    //     let now = new Date().getTime()
+    //     if (now - start >= threshhold) {
+    //       fn.apply(context, args);
+    //       console.log(now, start, now - start)
+    //       start = now;
+    //     } else {
+    //       timer = setTimeout(() => { // 设置timer，最后可以执行一次
+    //         console.log('========')
+    //         fn.apply(context, args);
+    //       }, threshhold)
+    //     }
+    //   }
+    // }
+    function throttle(fn, delay) {
+      let canRun = true;
       return function (e) {
-        let context = this, args = arguments;
-        clearTimeout(timer)
-        let now = new Date().getTime()
-        if (now - start >= threshhold) {
-          fn.apply(context, args);
-          console.log(now,start,now-start)
-          start = now;
-        } else {
-          timer = setTimeout(() => { // 设置timer，最后可以执行一次
-            console.log('========')
-            fn.apply(context, args);
-          }, threshhold)
-        }
+        if (!canRun) return;
+        canRun = false;
+        setTimeout(() => {
+          console.log('this is', this)
+          fn.apply(this, [...arguments]);
+          canRun = true;
+        }, delay)
       }
-
     }
     var validateThrottle = throttle(function (e) {
       console.log(e.pageX, e.pageY)
