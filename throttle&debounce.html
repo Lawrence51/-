@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button">
+    <script>
+        function debounce(fn, delay) {
+            console.log(111)
+            let timer = null;
+            return function (e) { // 将函数返回，则点击时，调用的对象实际上是点击事件
+                clearTimeout(timer)
+                var context = this, args = arguments;
+                console.log(this,22)
+                timer = setTimeout(() => {
+                    console.log('-----',e,args,this)
+                    fn.apply(context, args); // 确保fn的方法指向指的是调用方的
+                }, delay)
+            }
+        }
+        var validate = debounce(function (e) {
+            console.log('e is', e, this)
+        }, 1000)
+        document.querySelector("input").addEventListener('click', validate);
+    </script>
+</body>
+
+</html>

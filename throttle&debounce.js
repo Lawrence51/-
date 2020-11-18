@@ -14,7 +14,7 @@ function throttle(fn, delay){
 function debounce(fn,delay){
     let timer = null;
     return function(){
-        clearInterval(timer);
+        clearTimeout(timer);
         timer = setTimeout(()=>{
             fn.apply(this,this.arg)
         },delay)
