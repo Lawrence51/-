@@ -62,6 +62,16 @@
   grid-column-start: 3;
 }
 
+.grid10 {
+  display: grid;
+  /* grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-rows: 50px; */
+  height: 200px;
+  justify-items: center;
+  align-items: center;
+}
+
 .item1-grid7,.item2-grid7{
   grid-column-start: 1;
   grid-column-end: 3;
