@@ -110,7 +110,7 @@ function Insertion(arr) {
             arr[preIndex + 1] = arr[preIndex]
             preIndex--;
         }
-        arr[preIndex + 1] = current
+        arr[preIndex + 1] = current;  // --的操作已经完成，这个时候要将值插入
     };
     return arr;
 }
