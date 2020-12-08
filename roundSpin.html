@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 100px;
+            height: 100px;
+            margin: 80px;
+            border: 1px solid #E323A3;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .row span {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .spin {
+            animation: turn 1s linear;
+        }
+
+        .spin:after {
+            position: absolute;
+            display: block;
+            width: 0px;
+            height: 30px;
+            border-right: 1px solid #000;
+            content: '';
+            left: 50%;
+            top: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes turn {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            25% {
+                -webkit-transform: rotate(90deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(180deg);
+            }
+
+            75% {
+                -webkit-transform: rotate(270deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row row1">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+        </div>
+        <div class="row row2">
+            <span>4</span>
+            <span class="spin">&nbsp;</span>
+            <span>6</span>
+        </div>
+        <div class="row row3">
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            let sec = (Math.random() * 10).toFixed(2)
+            let spin = document.querySelector('.spin');
+            spin.style.setProperty('animation-iteration-count', sec);
+            let deg = sec * 360;
+            console.log( new Date(), new Date().getTime())
+            setTimeout(() => {
+                console.log( deg ,111)
+                spin.style.setProperty('transform', `rotate(${deg}deg)`);
+                console.log( new Date(), new Date().getTime())
+            }, sec * 1000)
+
+        }
+    </script>
+</body>
+
+</html>
