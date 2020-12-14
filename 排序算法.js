@@ -17,14 +17,14 @@ function buble(array) {
     return array;
 }
 //获取最大值
-function maxVal(array){
+function maxVal(array) {
     for (let i = 0; i < array.length; i++) {
-        if (array[i] > array[i+1]) {
+        if (array[i] > array[i + 1]) {
             let tmp = array[i];
-            array[i] = array[i+1];
-            array[i+1] = tmp
+            array[i] = array[i + 1];
+            array[i + 1] = tmp
         }
-        
+
     }
     return array;
 }
@@ -46,22 +46,22 @@ function bublePro(array) {
             break;
         }
     }
-    console.log('执行了次数',count)
+    console.log('执行了次数', count)
     return array;
 }
 // 鸡尾酒
 // 快速排序
 
 // 快速排序 双边循环
-function partition(arr, startIndex,endIndex){ // 位置排定
+function partition(arr, startIndex, endIndex) { // 位置排定
     let pivot = arr[startIndex];
-    let left = startIndex,right=endIndex;
+    let left = startIndex, right = endIndex;
     while (left != right) {
         // 控制right 指针比较并向左移动
         while (left < right && arr[right] > pivot) {
             right--;
         }
-        while(left < right && arr[left] <= pivot){
+        while (left < right && arr[left] <= pivot) {
             left++;
         }
         if (left < right) {
@@ -75,10 +75,10 @@ function partition(arr, startIndex,endIndex){ // 位置排定
     return left;
 }
 // 快速排序 单边循环
-function single(arr,startIndex,endIndex){
+function single(arr, startIndex, endIndex) {
     let pivot = arr[startIndex];
-    let mark =  startIndex;
-    for (let i = startIndex+1; endIndex; i++) {
+    let mark = startIndex;
+    for (let i = startIndex + 1; endIndex; i++) {
         if (arr[i] < pivot) {
             mark++;
             let p = arr[i];
@@ -90,13 +90,29 @@ function single(arr,startIndex,endIndex){
     arr[mark] = pivot;
 }
 // 递归调用排位置的
-function quickSort(arr,startIndex,endIndex){
+function quickSort(arr, startIndex, endIndex) {
     if (startIndex >= endIndex) {
         return;
     }
     let pivotIndex = partition(arr, startIndex, endIndex);
     quickSort(arr, startIndex, pivotIndex - 1);
     quickSort(arr, pivotIndex + 1, endIndex);
+}
+
+// 插入排序
+function Insertion(arr) {
+    let preIndex;
+    let current;
+    for (let i = 1; i < arr.length; i++) {
+        preIndex = i - 1;
+        current = arr[i];
+        while (preIndex >= 0 && current < arr[preIndex]) {
+            arr[preIndex + 1] = arr[preIndex]
+            preIndex--;
+        }
+        arr[preIndex + 1] = current;  // --的操作已经完成，这个时候要将值插入
+    };
+    return arr;
 }
 //堆排序
 // 基数排序和桶排序

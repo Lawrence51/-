@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#center {
+			width:10px;
+			height: 10px;
+			border-radius: 5px;
+			background: #000;
+			position: relative;
+			margin: 200px auto;
+		}
+		#dot {
+			width: 10px;
+			height: 10px;
+			background: red;
+			position: absolute;
+			border-radius: 5px;
+			left: 200px;
+			top: 0;
+
+			-o-transform: rotate(90deg);
+			-moz-transform: rotate(90deg);
+			-webkit-transform: rotate(90deg);
+			-ms-transform: rotate(90deg);
+			transform: rotate(90deg);
+
+			-o-transform-origin: -2000%;
+			-webkit-transform-origin: -2000%;
+			-moz-transform-origin: -2000%;
+			-ms-transform-origin: -2000%;
+			transform-origin: -2000%;
+
+			animation: rot 3s linear 0s infinite;
+			-o-animation: rot 3s linear 0s infinite;
+			-ms-animation: rot 3s linear 0s infinite;
+			-webkit-animation: rot 3s linear 0s infinite;
+			-moz-animation: rot 3s linear 0s infinite;
+		}
+
+		@keyframes rot {
+			from{
+				transform: rotate(0deg);
+			}
+			to{
+				transform: rotate(360deg);
+			}
+		}
+		@-o-keyframes rot {
+			from{
+				-o-transform: rotate(0deg);
+			}
+			to{
+				-o-transform: rotate(360deg);
+			}
+		}
+		@-webkit-keyframes rot {
+			from{
+				-webkit-transform: rotate(0deg);
+			}
+			to{
+				-webkit-transform: rotate(360deg);
+			}
+		}
+		@-moz-keyframes rot {
+			from{
+				-moz-transform: rotate(0deg);
+			}
+			to{
+				-moz-transform: rotate(360deg);
+			}
+		}
+		@-ms-keyframes rot {
+			from{
+				-ms-transform: rotate(0deg);
+			}
+			to{
+				-ms-transform: rotate(360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="center">
+		<div id="dot"></div>
+	</div>
+</body>
+</html>
