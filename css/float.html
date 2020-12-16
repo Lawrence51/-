@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浮动</title>
+    <style>
+        .container{
+            width: 800px;
+            border: 1px solid darkred;
+        }
+
+        
+        
+        .section-1{
+            float: left;
+            width: 200px;
+            height: 120px;
+            background: darkcyan;
+        }
+        .section-2{
+            float: left;
+            width: 300px;
+            height: 120px;
+            background: darkkhaki;
+        }
+        /* 方法1： 给父元素中最后插入一个 clear: both; 的元素 */
+        .clear-float{
+            clear: both;
+        }
+
+        /* 方法2： 添加overflow属性，通过触发BFC方式，实现清除浮动 */
+        .container-1{
+            width: 800px;
+            border: 1px solid darkred;
+            overflow: hidden;
+        }
+
+        /* 方法3：利用after伪元素加上 zoom来进行清除浮动 
+            本质还是类似方法 1
+        */
+        
+        .clearfix::after{
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        /* 如果只是为了解决父元素的高度为0的情况，可以参考下面两种方式 */
+        .float-p{
+            float: left;
+        }
+        .fixed-height{
+            height: 120px;
+        }
+
+
+
+        /* 决定定位的优先级高于浮动，并且由于脱离文档流，设置margin也是无效的 */
+        .location{
+            position: absolute;
+            float: right;
+            margin-bottom: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container location">
+        <div class="location-1">张三</div>
+        <div class="location-2">李四</div>
+    </div>
+    <div class="container">
+        <div class="section-1">张三</div>
+        <div class="section-2">李四</div>
+        <div class="clear-float"></div>
+    </div>
+    <div class="container-1">
+        <div class="section-1">张三</div>
+        <div class="section-2">李四</div>
+    </div>
+    <div class="container clearfix">
+        <div class="section-1">张三</div>
+        <div class="section-2">李四</div>
+    </div>
+    <div class="container fixed-height">
+        <div class="section-1">张三</div>
+        <div class="section-2">李四</div>
+    </div>
+    <div class="container float-p">
+        <div class="section-1">张三</div>
+        <div class="section-2">李四</div>
+    </div>
+</body>
+</html>
