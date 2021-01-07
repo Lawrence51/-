@@ -1,43 +1,43 @@
 // 发布订阅模式
-class Observer{
-  update(message){
-    console.log('消息接收',message)
+class Observer {
+  update(message) {
+    console.log('消息接收', message)
   }
 }
-class Demo{
-  update(message){
-    console.log('消息接收1',message)
+class Demo {
+  update(message) {
+    console.log('消息接收1', message)
   }
 }
-class ObserverList{
+class ObserverList {
   constructor() {
     this.observerList = [];
-}
-  add(observe){
+  }
+  add(observe) {
     this.observerList.push(observe);
     return this;
   }
-  remove(observe){
-    this.observerList = this.observerList.filter(ob=>ob!==observe);
+  remove(observe) {
+    this.observerList = this.observerList.filter(ob => ob !== observe);
     return this;
   }
-  get(index){
+  get(index) {
     return this.observerList[index];
   }
-  count(){
+  count() {
     return this.observerList.length;
   }
 }
 
-class Subject{
-  observers = new ObserverList;
-  add(observe){
+class Subject {
+  observers = new ObserverList();
+  add(observe) {
     this.observers.add(observe)
   }
-  remove(observe){
+  remove(observe) {
     this.observers.remove(observe)
   }
-  notify(...params){
+  notify(...params) {
     for (let i = 0; i < this.observers.count(); i++) {
       let item = this.observers.get(i);
       item.update(...params);
@@ -46,9 +46,9 @@ class Subject{
 }
 
 let sub = new Subject();
-sub.add(new Observer);
-sub.add(new Observer);
-sub.add(new Demo);
+sub.add(new Observer());
+sub.add(new Observer());
+sub.add(new Demo());
 setTimeout(() => {
   sub.notify('你好~~');
 }, 1000);

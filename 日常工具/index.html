@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字频统计</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .title {
+      padding: 5px 10px;
+    }
+
+    .text-container {
+      width: 100%;
+      text-align: center;
+    }
+
+    .text-container textarea {
+      width: 96%;
+    }
+
+    .text-container button {
+      display: inline-block;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      background: #FFF;
+      border: 1px solid #DCDFE6;
+      color: #606266;
+      -webkit-appearance: none;
+      text-align: center;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      outline: 0;
+      margin: 0;
+      -webkit-transition: .1s;
+      transition: .1s;
+      font-weight: 500;
+      padding: 9px 15px;
+      font-size: 12px;
+      border-radius: 3px;
+      color: #FFF;
+      background-color: #409EFF;
+      border-color: #409EFF;
+    }
+    .font-display{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .font-item{
+      width: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #fad8be;
+    }
+    .font-text{
+      width: 36px;
+      color: #fe6673;
+    }
+    .font-number{
+      width: 42px;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="title">郭绍鹏文章词汇统计</p>
+  <div class="text-container">
+    <textarea rows="6"></textarea>
+  </div>
+  <div class="text-container">
+    <button>查看一下</button>
+  </div>
+  <div class="text-container font-display"></div>
+  <script>
+    window.onload = function () {
+      function compiler(listMap) {
+        // let temList = arr.reduce(total, item => {
+        //   return total + `<div class="font-item"><span class="font-text">${item.font}</span><span class="font-number">${item.number}</span></div>`
+        // });
+        let temList = ''
+        for (const key in listMap) {
+          if (Object.hasOwnProperty.call(listMap, key)) {
+            temList += `<div class="font-item"><span class="font-text">${key}</span> : <span class="font-number">${listMap[key]}</span></div>`;            
+          }
+        }
+        document.querySelector('.text-container.font-display').innerHTML = temList;
+      }
+      var btn = document.querySelector('button');
+      btn.onclick = function () {
+        let value = document.querySelector('textarea').value;
+        let fontList = value.split('');
+        let listMap = {};
+        fontList.forEach(item=>{
+          let key = item.length>0 && !item.trim() ? '空格' : item;
+          listMap[key] ? listMap[key]++ : listMap[key] = 1;
+        });
+        console.log(listMap,'=====')
+        compiler(listMap)
+      }
+    }
+  </script>
+</body>
+
+</html>

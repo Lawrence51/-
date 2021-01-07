@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h3>姓名</h3>
+        <p>{{ name }}</p>
+        <h3>年龄</h3>
+        <p>{{ age }}</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', ()=>{
+            let opt = {el:'#app',data:{name:'检索中',age:30}}
+            let vm = new Vue(opt)
+            setTimeout(()=>{
+                opt.data.name = 'DD'
+            },2000)
+        })
+        class Vue{
+            constructor(opt){
+                this.opt = opt;
+                this.observe(opt.data) // 观察监听数据
+                let root = document.querySelector(opt.el); // 获取顶层的dom 用于插入相应的组件
+                this.compile(root); // 编译                
+            }
+
+            observe(data){
+                Object.keys(data).forEach(key =>{
+                    let obv = new Observer()
+                    data['_' + key] = data[key]
+                    // 通过getter setter暴露for循环中作用域下的obv 闭包产生
+                    Object.defineProperty(data, key, {
+                        get(){
+                            Observe.target && obv.addSubNode(Observer.target);
+                            return data['_'+key];
+                        },
+                        set(newVal){
+                            obv.update(newVal);
+                            data['_'+key] = newVal;
+                        }
+                    })
+                })
+            }
+
+            compile(node){
+                [].forEach.call(node.childNodes, child =>{
+                    if (!child.firstElementChild && /\{\{(.*)\}\}/.test(child.innerHTML)) {
+                        let key = RegExp.$1.trim()
+                        child.innerHTML = child.innerHTML.replace(new RegExp('\\{\\{\\s*' + key + '\\s*\\}\\}', 'gm'), this.opt.data[key]) //将
+                        Observe.target = child;
+                        this.opt.data[key];
+                        Observer.target = null;
+                    } else if(child.firstElementChild) {
+                        this.compile(child)
+                    }
+                })
+            }
+        }
+
+        class Observer{
+            constructor(){
+                this.subNode = [];
+            }
+
+            addSubNode(node){
+                this.subNode.push(node)
+            }
+
+            update(newVal){
+                this.subNode.forEach(node=>{
+                    node.innerHTML = newVal
+                })
+            }
+        }
+    </script>
+</body>
+</html>
