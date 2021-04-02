@@ -91,9 +91,11 @@
           }
         }
         document.querySelector('.text-container.font-display').innerHTML = temList;
+        console.timeEnd(1);
       }
       var btn = document.querySelector('button');
       btn.onclick = function () {
+        console.time(1);
         let value = document.querySelector('textarea').value;
         let fontList = value.split('');
         let listMap = {};
