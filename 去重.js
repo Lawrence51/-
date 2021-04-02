@@ -17,3 +17,16 @@ responseList.reduce((total, item, index) => {
 
   return total;
 }, [])
+
+
+var a = 10;
+var obj = {
+  a: 20,
+  say: function () {
+    console.log(this.a);
+    return function fn() {
+      console.log(this.a);
+    }
+  }
+};
+obj.say()();
